@@ -2,7 +2,7 @@ import PhoneNumber from "./PhoneNumber";
 import SocialLink from "./SocialLink";
 
 interface IMemberOverview {
-    job_title: string;
+    job_title?: string;
     email?: string;
     add_email?: string
     phone_number?: PhoneNumber;
@@ -11,14 +11,14 @@ interface IMemberOverview {
 }
 
 class MemberOverview implements IMemberOverview {
-    job_title: string;
+    job_title?: string;
     email?: string;
     add_email?: string
     phone_number?: PhoneNumber;
     add_phone_number?: PhoneNumber;
     social_links?: SocialLink[];
 
-    constructor(job_title: string, email?: string, add_email?: string, phone_number?: PhoneNumber, add_phone_number?: PhoneNumber, social_links?: SocialLink[]) {
+    constructor(job_title?: string, email?: string, add_email?: string, phone_number?: PhoneNumber, add_phone_number?: PhoneNumber, social_links?: SocialLink[]) {
         this.job_title = job_title;
         this.email = email;
         this.add_email = add_email;
