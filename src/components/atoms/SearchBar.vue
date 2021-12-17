@@ -16,6 +16,8 @@
                     placeholder:font-normal
                     placeholder:text-bumpp-search-placeholder
                     text-bumpp-blue-txt
+                    font-Poppins
+                    placeholder:font-Poppins
                 " 
             placeholder="Search by name or position"
         />

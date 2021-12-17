@@ -5,7 +5,11 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Poppins: ['Poppins', 'sans-serif']
+      }
+    },
     colors: {
       "bumpp-grey-main": "#CFCED8",
       "bumpp-white-side-bar": '#F5F5F7',

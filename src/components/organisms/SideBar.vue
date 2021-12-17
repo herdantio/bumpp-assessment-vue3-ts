@@ -11,7 +11,7 @@ import YourTeamButton from '../molecules/YourTeamButton.vue';
               <CompayLogo></CompayLogo>
           </div>
           <div class="pl-[5px] h-[30px]">
-              <span class="text-[12px] align-middle font-medium text-bumpp-blue-txt">Bumpp</span>
+              <span class="text-[12px] align-middle font-medium text-bumpp-blue-txt font-Poppins">Bumpp</span>
           </div>
       </div>
       <div class="pt-[30px] pl-[10px]">

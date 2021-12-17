@@ -14,7 +14,7 @@ const props: YourTeamButtonProps = withDefaults(defineProps<YourTeamButtonProps>
                 <img src="../../assets/Your_Team_icon.svg" class="pl-[10px]"/>
             <!-- </div> -->
             <!-- <div class="pl-[10px] inline-block align-middle"> -->
-                <span class="text-[14px] pl-[10px] font-medium text-bumpp-blue-txt ">
+                <span class="text-[14px] pl-[10px] font-medium text-bumpp-blue-txt font-Poppins">
                     {{props.btnText}}
                 </span>
             <!-- </div> -->
