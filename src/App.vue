@@ -22,7 +22,7 @@ import TeamMemberTable from './components/organisms/TeamMemberTable.vue';
           </p>
         </div>
         <!-- subtext -->
-        <div class="pt-[15px]">
+        <div class="pt-[15px] w-[1120px]">
           <p class="text-bumpp-blue-txt text-[16px] font-normal font-Poppins">
             Manage or create business cards for your team. If your coworkers create company business cards through the app, they will appear under requests. Users won’t be able to create verified business cards associated to your company, unless accepted your team.
           </p>
