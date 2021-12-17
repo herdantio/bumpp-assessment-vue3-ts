@@ -7,8 +7,22 @@ import Member from "../../types/Member";
     name: "MemberModule",
 })
 export default class MemberModule extends VuexModule {
-    members?: Member[] = [];
+    members: Member[] = [];
+    searchFilter: string = "";
 
+    get membersFiltered() {
+        return this.members ? this.members.filter((member: Member) => {
+            return member.user.first_name.toLowerCase().includes(this.searchFilter?.toLowerCase()) || member.user.last_name.toLowerCase().includes(this.searchFilter?.toLowerCase()) || member.overview.job_title?.toLowerCase().includes(this.searchFilter?.toLowerCase());
+        }) 
+        : 
+        [];
+    }
+    
+    @Mutation
+    setSearchFilter(searchFilter: string) {
+        this.searchFilter = searchFilter;
+    }
+    
     @Mutation
     setMembers(members: Member[]) {
         this.members = members;

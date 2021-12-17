@@ -3,7 +3,15 @@ import PageBgColorWrapper from './components/templates/PageBgColorWrapper.vue';
 import SideBar from './components/organisms/SideBar.vue';
 import SearchBar from './components/atoms/SearchBar.vue';
 import TeamMemberTable from './components/organisms/TeamMemberTable.vue';
+import { useStore } from 'vuex';
+import MemberModule from './store/modules/MemberModule';
+import { getModule } from 'vuex-module-decorators';
 
+const store = useStore();
+const memberModule = getModule(MemberModule, store);
+const handleInputKeyup = (value: string) => {
+    memberModule.setSearchFilter(value);
+};
 </script>
 
 <template>
@@ -29,7 +37,7 @@ import TeamMemberTable from './components/organisms/TeamMemberTable.vue';
         </div>
         <!-- search bar -->
         <div class="pt-[30px]">
-          <SearchBar></SearchBar>
+          <SearchBar @input-keyup="handleInputKeyup"></SearchBar>
         </div>
         <!-- team member table -->
         <div class="pt-[20px]">

@@ -27,7 +27,7 @@ onMounted(() => {
             </div>
         </div>
         <!-- body -->
-        <div v-for="member in memberModule.members" :key="member.id" class="ml-[30px]">
+        <div v-for="member in memberModule.membersFiltered" :key="member.id" class="ml-[30px]">
             <TeamMemberItem :member="member"></TeamMemberItem>
         </div>
     </div>
