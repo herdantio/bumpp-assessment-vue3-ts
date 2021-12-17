@@ -2,7 +2,7 @@ import axios from 'axios'
 import Member from '../types/Member';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://bumpp-assessment.herokuapp.com',
 });
 
 const getAllMembers = () => {
