@@ -2,10 +2,13 @@
 import { useStore } from 'vuex';
 import MemberModule from '../../store/modules/MemberModule';
 import TeamMemberItem from '../atoms/TeamMemberItem.vue';
+import { onMounted } from 'vue';
 
 const store = useStore()
 const memberModule = getModule(MemberModule, store)
-memberModule.getAllMembers()
+onMounted(() => {
+    memberModule.getAllMembers()
+})
 </script>
 
 <template>
