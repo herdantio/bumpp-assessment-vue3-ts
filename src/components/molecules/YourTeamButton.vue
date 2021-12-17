@@ -8,7 +8,7 @@ const props: YourTeamButtonProps = withDefaults(defineProps<YourTeamButtonProps>
 </script>
 
 <template>
-    <button class="w-[180px] h-[40px] bg-bump-your-team-btn rounded-[10px]">
+    <button class="w-[180px] h-[40px] bg-bumpp-your-team-btn rounded-[10px]">
         <div class="flex flex-row">
             <!-- <div class="pl-[10px] inline-block align-middle"> -->
                 <img src="../../assets/Your_Team_icon.svg" class="pl-[10px]"/>
