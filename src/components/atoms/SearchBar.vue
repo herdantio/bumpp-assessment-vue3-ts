@@ -1,3 +1,15 @@
+<script setup lang="ts">
+interface SearchBarEmits {
+    (e: 'inputKeyup', value: string):  void
+}
+const emit = defineEmits<SearchBarEmits>()
+
+const handleSearchInput = (e: Event) => {
+    const {value} = e.target as HTMLInputElement
+    emit('inputKeyup', value)
+}
+</script>
+
 <template>
     <label class="relative block">
         <span class="absolute inset-y-0 left-0 flex items-center pl-[15px]">
@@ -20,6 +32,7 @@
                     placeholder:font-Poppins
                 " 
             placeholder="Search by name or position"
+            @keyup="handleSearchInput"
         />
     </label>
 </template>

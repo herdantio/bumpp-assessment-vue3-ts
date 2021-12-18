@@ -4,7 +4,16 @@ interface TeamMemberItemProps{
     member: Member
 }
 
+interface TeamMemberItemEmits{
+    (e: 'editMemberClicked', member: Member):  void
+}
+
 const props:TeamMemberItemProps = defineProps<TeamMemberItemProps>()
+const emits = defineEmits<TeamMemberItemEmits>()
+
+const handleEditMemberClicked = () => {
+    emits('editMemberClicked', props.member)
+}
 </script>
 
 <template>
@@ -34,13 +43,13 @@ const props:TeamMemberItemProps = defineProps<TeamMemberItemProps>()
         </div>
         <!-- platform select -->
         <div class="ml-[80px] mt-[10px] mb-[10px]">
-            <select class="w-[120px] w-[30px]">
+            <select class="w-[120px] h-[30px]">
                 <option>Admin</option>
                 <option>View-Only</option>
             </select>
         </div>
         <!-- edit -->
-        <div class="ml-[212px]">
+        <div class="ml-[212px] cursor-pointer" @click="handleEditMemberClicked">
             <img src="../../assets/Edit_icon.svg"/>
         </div>
     </div>
