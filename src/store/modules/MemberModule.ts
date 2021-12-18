@@ -1,6 +1,8 @@
 import { Action, Module, Mutation, VuexModule } from "vuex-module-decorators";
 import MembersAPI from "../../api/MembersAPI";
 import Member from "../../types/Member";
+import MemberOverview from "../../types/MemberOverview";
+import SocialLink from "../../types/SocialLink";
 
 @Module({
     namespaced: true,
@@ -10,6 +12,41 @@ export default class MemberModule extends VuexModule {
     members: Member[] = [];
     searchFilter: string = "";
     isMemberModalOpen: boolean = false;
+    memberModalInfo: MemberOverview = {
+        job_title: "",
+        email: "",
+        add_email: "",
+        phone_number: {
+            code: "",
+            number: ""
+        },
+        add_phone_number: {
+            code: "",
+            number: ""
+        },
+        social_links: [
+            {
+                type: "facebook",
+                title: "",
+                url: ""
+            },
+            {
+                type: "linkedin",
+                title: "",
+                url: ""
+            },
+            {
+                type: "instagram",
+                title: "",
+                url: ""
+            },
+            {
+                type: "telegram",
+                title: "",
+                url: ""
+            }
+        ],
+    }
     
 
     get membersFiltered() {
@@ -18,6 +55,126 @@ export default class MemberModule extends VuexModule {
         }) 
         : 
         [];
+    }
+
+    get socialLink() {
+        return (socialType: string) => this.memberModalInfo.social_links?.find((social_link: SocialLink) => social_link.type === socialType)
+    }
+    
+    @Mutation
+    setJobTitle(e: Event) {
+        const { value } = e.target as HTMLInputElement;
+        this.memberModalInfo.job_title = value;
+    }
+
+    @Mutation
+    setEmail(e: Event) {
+        const { value } = e.target as HTMLInputElement;
+        this.memberModalInfo.email = value;
+    }
+
+    @Mutation
+    setAdditionalEmail(e: Event) {
+        const { value } = e.target as HTMLInputElement;
+        this.memberModalInfo.add_email = value;
+    }
+
+    @Mutation
+    setPhoneNumber(e: Event) {
+        const { value } = e.target as HTMLInputElement;
+        this.memberModalInfo.phone_number!.number = value;
+    }
+
+    @Mutation
+    setPhoneNumberCode(e: Event) {
+        const { value } = e.target as HTMLInputElement;
+        this.memberModalInfo.phone_number!.code = value;
+    }
+
+    @Mutation
+    setAddPhoneNumber(e: Event) {
+        const { value } = e.target as HTMLInputElement;
+        this.memberModalInfo.add_phone_number!.number = value;
+    }
+
+    @Mutation
+    setAddPhoneNumberCode(e: Event) {
+        const { value } = e.target as HTMLInputElement;
+        this.memberModalInfo.add_phone_number!.code = value;
+    }
+    
+    @Mutation
+    handleLinkedin(e: Event) {
+        const { value } = e.target as HTMLInputElement;
+        this.memberModalInfo.social_links?.forEach(link => {
+            if(link.type == 'linkedin'){
+                link.title = value
+                link.url = value
+            }
+        })
+    }
+
+    @Mutation
+    handleFacebook(e: Event) {
+        const { value } = e.target as HTMLInputElement;
+        this.memberModalInfo.social_links?.forEach(link => {
+            if(link.type == 'facebook'){
+                link.title = value
+                link.url = value
+            }
+        })
+    }
+
+    @Mutation
+    handleInstagram(e: Event) {
+        const { value } = e.target as HTMLInputElement;
+        this.memberModalInfo.social_links?.forEach(link => {
+            if(link.type == 'instagram'){
+                link.title = link.title[0] == '@' ? value : `@${value}`
+                link.url = link.url[0] == '@' ? value : `@${value}`
+            }
+        })
+    }
+
+    @Mutation
+    handleTelegram(e: Event) {
+        const { value } = e.target as HTMLInputElement;
+        this.memberModalInfo.social_links?.forEach(link => {
+            if(link.type == 'telegram'){
+                link.title = link.title[0] == '@' ? value : `@${value}`
+                link.url = link.url[0] == '@' ? value : `@${value}`
+            }
+        })
+    }
+
+    @Mutation
+    setMemberModalInfo(memberModalInfo: MemberOverview) {
+        try {
+            const linkedin = memberModalInfo.social_links?.find(link => link.type == 'linkedin')
+            const facebook = memberModalInfo.social_links?.find(link => link.type == 'facebook')
+            const instagram = memberModalInfo.social_links?.find(link => link.type == 'instagram')
+            const telegram = memberModalInfo.social_links?.find(link => link.type == 'telegram')   
+            if(linkedin && this.memberModalInfo.social_links) this.memberModalInfo.social_links[1] = linkedin
+            if(facebook && this.memberModalInfo.social_links) this.memberModalInfo.social_links[0] = facebook
+            if(instagram && this.memberModalInfo.social_links) {
+                instagram.title = instagram.title[0] == '@' ? instagram.title : `@${instagram.title}`
+                instagram.url = instagram.url[0] == '@' ? instagram.url : `@${instagram.url}`
+                this.memberModalInfo.social_links[2] = instagram
+            }
+            if(telegram && this.memberModalInfo.social_links) {
+                telegram.title = telegram.title[0] == '@' ? telegram.title : `@${telegram.title}`
+                telegram.url = telegram.url[0] == '@' ? telegram.url : `@${telegram.url}`
+                this.memberModalInfo.social_links[3] = telegram
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+        if(memberModalInfo.job_title) this.memberModalInfo.job_title = memberModalInfo.job_title;
+        if(memberModalInfo.email) this.memberModalInfo.email = memberModalInfo.email;
+        if(memberModalInfo.add_email) this.memberModalInfo.add_email = memberModalInfo.add_email;
+        if(memberModalInfo.phone_number) this.memberModalInfo.phone_number = memberModalInfo.phone_number;
+        if(memberModalInfo.add_phone_number) this.memberModalInfo.add_phone_number = memberModalInfo.add_phone_number;
     }
     
     @Mutation
@@ -53,8 +210,15 @@ export default class MemberModule extends VuexModule {
     @Action
     async updateMember(member: Member) {
         try {
+            if(member.overview.social_links) {
+                member.overview.social_links[2].title =  member.overview.social_links[2].title[0] != '@' ?  member.overview.social_links[2].url :  member.overview.social_links[2].url.substring(1)
+                member.overview.social_links[2].url =  member.overview.social_links[2].url[0] != '@' ?  member.overview.social_links[2].url :  member.overview.social_links[2].url.substring(1)
+                member.overview.social_links[3].title =  member.overview.social_links[3].title[0] != '@' ?  member.overview.social_links[3].url :  member.overview.social_links[3].url.substring(1)
+                member.overview.social_links[3].url =  member.overview.social_links[3].url[0] != '@' ?  member.overview.social_links[3].url :  member.overview.social_links[3].url.substring(1)
+            }
             const response = await MembersAPI.updateMember(member)
             console.log(response.data)
+            if(response.data.success) this.closeMemberModal()
             this.getAllMembers();
         } catch (error) {
             console.log(error)

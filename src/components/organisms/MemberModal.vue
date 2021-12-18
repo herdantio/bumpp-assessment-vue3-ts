@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Dialog, DialogOverlay, TransitionRoot, TransitionChild } from "@headlessui/vue";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 import { getModule } from "vuex-module-decorators";
 import MemberModule from "../../store/modules/MemberModule";
@@ -18,49 +18,15 @@ interface MemberModalProps {
 }
 const props = defineProps<MemberModalProps>();
 
-let job_title = ref("");
-let email = ref("");
-let add_email = ref("");
 let phone_number_code = ref("");
 let phone_number_number = ref("");
 let add_phone_number_code = ref("");
 let add_phone_number_number = ref("");
-let linkedin = ref("");
-let facebook = ref("");
-let instagram = ref("");
-let telegram = ref("");
 
 const save_change = () => {
     let payload: Member = props.member;
-    payload.overview.job_title = job_title.value;
-    payload.overview.email = email.value;
-    payload.overview.add_email = add_email.value;
-    payload.overview.phone_number!.code = phone_number_code.value;
-    payload.overview.phone_number!.number = phone_number_number.value;
-    payload.overview.add_phone_number!.code = add_phone_number_code.value;
-    payload.overview.add_phone_number!.number = add_phone_number_number.value;
-    payload.overview.social_links?.push({
-        type: "linkedin",
-        title: linkedin.value,
-        url: linkedin.value
-    });
-    payload.overview.social_links?.push({
-        type: "facebook",
-        title: facebook.value,
-        url: facebook.value
-    });
-    payload.overview.social_links?.push({
-        type: "instagram",
-        title: instagram.value,
-        url: instagram.value
-    });
-    payload.overview.social_links?.push({
-        type: "telegram",
-        title: telegram.value,
-        url: telegram.value
-    });
+    payload.overview = memberModule.memberModalInfo;
     memberModule.updateMember(payload);
-    // closeModal();
 }
 </script>
 
@@ -119,7 +85,7 @@ const save_change = () => {
 
                             <!-- job title -->
                             <div class="mt-[20px] flex flex-col items-center">
-                                <input v-model="job_title" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder placeholder:pl-[10px] rounded-[10px]" type="text" placeholder="Job Title"/>
+                                <input :value="memberModule.memberModalInfo.job_title" @input="memberModule.setJobTitle" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[10px] rounded-[10px]" type="text" placeholder="Job Title"/>
                             </div>
 
                             <!-- phone & additional phone -->
@@ -128,11 +94,11 @@ const save_change = () => {
                                     <select v-model="phone_number_code" class="ml-[63px] w-[80px] rounded-[10px]">
                                         <option value="+65">+65</option>
                                     </select>
-                                    <input v-model="phone_number_number" class="w-[190px] h-[40px] ml-[10px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[16px] rounded-[10px]" type="text" placeholder="Mobile Number*"/>
+                                    <input :value="memberModule.memberModalInfo.phone_number?.number" @input="memberModule.setPhoneNumber" class="w-[190px] h-[40px] ml-[10px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[16px] rounded-[10px]" type="text" placeholder="Mobile Number*"/>
                                     <select v-model="add_phone_number_code" class="ml-[15px] w-[80px] rounded-[10px]">
                                         <option value="+65">+65</option>
                                     </select>
-                                    <input v-model="add_phone_number_number" class="w-[190px] h-[40px] ml-[10px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[16px] rounded-[10px]" type="text" placeholder="Additional Number"/>                                    
+                                    <input :value="memberModule.memberModalInfo.add_phone_number?.number" @input="memberModule.setAddPhoneNumber" class="w-[190px] h-[40px] ml-[10px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[16px] rounded-[10px]" type="text" placeholder="Additional Number"/>                                    
                                 </div>
                             </div>
 
@@ -144,7 +110,7 @@ const save_change = () => {
                                         <img src="../../assets/Textfield_icons/Email_Icon.svg" class="w-[20px]"/>
                                         </span>
                                     </span>
-                                    <input v-model="email" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="Email Address*"/>
+                                    <input :value="memberModule.memberModalInfo.email" @input="memberModule.setEmail" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="Email Address*"/>
                                 </label>
                             </div>
 
@@ -156,7 +122,7 @@ const save_change = () => {
                                         <img src="../../assets/Textfield_icons/Email_Icon.svg" class="w-[20px]"/>
                                         </span>
                                     </span>
-                                    <input v-model="add_email" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="Additional Email Address"/>
+                                    <input :value="memberModule.memberModalInfo.add_email" @input="memberModule.setAdditionalEmail" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="Additional Email Address"/>
                                 </label>
                             </div>
 
@@ -168,7 +134,7 @@ const save_change = () => {
                                         <img src="../../assets/Textfield_icons/LinkedIn.png" class="w-[20px]"/>
                                         </span>
                                     </span>
-                                    <input v-model="linkedin" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="LinkedIn Link"/>
+                                    <input :value="memberModule.socialLink('linkedin')?.url" @input="memberModule.handleLinkedin" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="LinkedIn Link"/>
                                 </label>
                             </div>
 
@@ -180,7 +146,7 @@ const save_change = () => {
                                         <img src="../../assets/Textfield_icons/Facebook.png" class="w-[20px] rounded-full"/>
                                         </span>
                                     </span>
-                                    <input v-model="facebook" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="Facebook Link"/>
+                                    <input :value="memberModule.socialLink('facebook')?.url" @input="memberModule.handleFacebook" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="Facebook Link"/>
                                 </label>
                             </div>
 
@@ -193,7 +159,7 @@ const save_change = () => {
                                             <img src="../../assets/Textfield_icons/Instagram.png" class="w-[20px]"/>
                                             </span>
                                         </span>
-                                        <input v-model="instagram" class="w-[280px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="@"/>
+                                        <input :value="memberModule.socialLink('instagram')?.url" @input="memberModule.handleInstagram" class="w-[280px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="@"/>
                                     </label>
 
                                     <label class="relative block ml-[15px]">
@@ -202,7 +168,7 @@ const save_change = () => {
                                             <img src="../../assets/Textfield_icons/Telegram.png" class="w-[20px]"/>
                                             </span>
                                         </span>
-                                        <input v-model="telegram" class="w-[280px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="@"/>
+                                        <input :value="memberModule.socialLink('telegram')?.url" @input="memberModule.handleTelegram" class="w-[280px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="@"/>
                                     </label>
                                 </div>
                             </div>

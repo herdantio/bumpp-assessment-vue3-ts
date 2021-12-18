@@ -8,6 +8,7 @@ import MemberModal from './MemberModal.vue';
 
 const store = useStore()
 const memberModule = getModule(MemberModule, store)
+
 onMounted(() => {
     memberModule.getAllMembers()
 })
@@ -18,6 +19,7 @@ let memberProps = reactive({
 
 const handleEditMemberClicked = (member: Member) => {
     memberProps.member = member
+    memberModule.setMemberModalInfo(member.overview)
     memberModule.openMemberModal()
 }
 </script>
