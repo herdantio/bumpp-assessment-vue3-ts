@@ -6,7 +6,6 @@ import TeamMemberTable from './components/organisms/TeamMemberTable.vue';
 import { useStore } from 'vuex';
 import MemberModule from './store/modules/MemberModule';
 import { getModule } from 'vuex-module-decorators';
-import MemberModal from './components/organisms/MemberModal.vue';
 
 const store = useStore();
 const memberModule = getModule(MemberModule, store);
@@ -46,8 +45,7 @@ const handleInputKeyup = (value: string) => {
         </div>
       </div>
     </div>
-    <!-- modal -->
-    <MemberModal></MemberModal>
+    
   </PageBgColorWrapper>
 </template>
 

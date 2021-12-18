@@ -9,7 +9,8 @@ import Member from "../../types/Member";
 export default class MemberModule extends VuexModule {
     members: Member[] = [];
     searchFilter: string = "";
-    isMemberModalOpen: boolean = true;
+    isMemberModalOpen: boolean = false;
+    
 
     get membersFiltered() {
         return this.members ? this.members.filter((member: Member) => {

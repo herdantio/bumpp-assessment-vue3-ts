@@ -2,16 +2,22 @@
 import { useStore } from 'vuex';
 import MemberModule from '../../store/modules/MemberModule';
 import TeamMemberItem from '../atoms/TeamMemberItem.vue';
-import { onMounted } from 'vue';
+import { onMounted, reactive } from 'vue';
 import Member from '../../types/Member';
+import MemberModal from './MemberModal.vue';
 
 const store = useStore()
 const memberModule = getModule(MemberModule, store)
 onMounted(() => {
     memberModule.getAllMembers()
 })
+
+let memberProps = reactive({
+    member: {} as Member
+})
+
 const handleEditMemberClicked = (member: Member) => {
-    console.log(member)
+    memberProps.member = member
     memberModule.openMemberModal()
 }
 </script>
@@ -35,5 +41,8 @@ const handleEditMemberClicked = (member: Member) => {
         <div v-for="member in memberModule.membersFiltered" :key="member.id" class="ml-[30px]">
             <TeamMemberItem :member="member" @edit-member-clicked="handleEditMemberClicked"></TeamMemberItem>
         </div>
+
+        <!-- modal -->
+        <MemberModal :member="memberProps.member"></MemberModal>
     </div>
 </template>

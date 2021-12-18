@@ -49,7 +49,7 @@ const handleEditMemberClicked = () => {
             </select>
         </div>
         <!-- edit -->
-        <div class="ml-[212px]" @click="handleEditMemberClicked">
+        <div class="ml-[212px] cursor-pointer" @click="handleEditMemberClicked">
             <img src="../../assets/Edit_icon.svg"/>
         </div>
     </div>

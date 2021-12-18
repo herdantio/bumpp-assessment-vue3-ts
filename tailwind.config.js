@@ -18,6 +18,8 @@ module.exports = {
         "bumpp-table-white": "#FFFFFF",
         "bumpp-modal-start": "#E0F4FF",
         "bumpp-modal-end": "#BABFCE",
+        "bumpp-modal-placeholder": "#A6A6A6",
+        "bumpp-modal-btn": "#FF5359",
       }
     },
     
