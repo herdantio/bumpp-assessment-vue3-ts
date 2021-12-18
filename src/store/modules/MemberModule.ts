@@ -9,6 +9,7 @@ import Member from "../../types/Member";
 export default class MemberModule extends VuexModule {
     members: Member[] = [];
     searchFilter: string = "";
+    isMemberModalOpen: boolean = true;
 
     get membersFiltered() {
         return this.members ? this.members.filter((member: Member) => {
@@ -18,6 +19,16 @@ export default class MemberModule extends VuexModule {
         [];
     }
     
+    @Mutation
+    openMemberModal() {
+        this.isMemberModalOpen = true;
+    }
+
+    @Mutation
+    closeMemberModal() {
+        this.isMemberModalOpen = false;
+    }
+
     @Mutation
     setSearchFilter(searchFilter: string) {
         this.searchFilter = searchFilter;

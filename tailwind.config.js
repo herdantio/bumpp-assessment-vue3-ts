@@ -8,16 +8,19 @@ module.exports = {
     extend: {
       fontFamily: {
         Poppins: ['Poppins', 'sans-serif']
+      },
+      colors: {
+        "bumpp-grey-main": "#CFCED8",
+        "bumpp-white-side-bar": '#F5F5F7',
+        "bumpp-blue-txt": "#2C305D",
+        "bumpp-your-team-btn": "#DEDEE4",
+        "bumpp-search-placeholder": "#565656",
+        "bumpp-table-white": "#FFFFFF",
+        "bumpp-modal-start": "#E0F4FF",
+        "bumpp-modal-end": "#BABFCE",
       }
     },
-    colors: {
-      "bumpp-grey-main": "#CFCED8",
-      "bumpp-white-side-bar": '#F5F5F7',
-      "bumpp-blue-txt": "#2C305D",
-      "bumpp-your-team-btn": "#DEDEE4",
-      "bumpp-search-placeholder": "#565656",
-      "bumpp-table-white": "#FFFFFF"
-    }
+    
   },
   plugins: [],
 }

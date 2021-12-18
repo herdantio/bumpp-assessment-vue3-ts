@@ -3,12 +3,17 @@ import { useStore } from 'vuex';
 import MemberModule from '../../store/modules/MemberModule';
 import TeamMemberItem from '../atoms/TeamMemberItem.vue';
 import { onMounted } from 'vue';
+import Member from '../../types/Member';
 
 const store = useStore()
 const memberModule = getModule(MemberModule, store)
 onMounted(() => {
     memberModule.getAllMembers()
 })
+const handleEditMemberClicked = (member: Member) => {
+    console.log(member)
+    memberModule.openMemberModal()
+}
 </script>
 
 <template>
@@ -28,7 +33,7 @@ onMounted(() => {
         </div>
         <!-- body -->
         <div v-for="member in memberModule.membersFiltered" :key="member.id" class="ml-[30px]">
-            <TeamMemberItem :member="member"></TeamMemberItem>
+            <TeamMemberItem :member="member" @edit-member-clicked="handleEditMemberClicked"></TeamMemberItem>
         </div>
     </div>
 </template>
