@@ -91,14 +91,14 @@ const save_change = () => {
                             <!-- phone & additional phone -->
                             <div class="mt-[15px] flex flex-col"> 
                                 <div class="flex flex-row">
-                                    <select v-model="phone_number_code" class="ml-[63px] w-[80px] rounded-[10px]">
-                                        <option value="+65">+65</option>
+                                    <select class="ml-[63px] w-[80px] rounded-[10px]">
+                                        <option :value="props.member.overview.phone_number?.code"> {{props.member.overview.phone_number?.code}} </option>
                                     </select>
                                     <input :value="memberModule.memberModalInfo.phone_number?.number" @input="memberModule.setPhoneNumber" class="w-[190px] h-[40px] ml-[10px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[16px] rounded-[10px]" type="text" placeholder="Mobile Number*"/>
-                                    <select v-model="add_phone_number_code" class="ml-[15px] w-[80px] rounded-[10px]">
-                                        <option value="+65">+65</option>
+                                    <select class="ml-[15px] w-[80px] rounded-[10px]">
+                                        <option :value="props.member.overview.add_phone_number?.code">{{props.member.overview.add_phone_number?.code}}</option>
                                     </select>
-                                    <input :value="memberModule.memberModalInfo.add_phone_number?.number" @input="memberModule.setAddPhoneNumber" class="w-[190px] h-[40px] ml-[10px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[16px] rounded-[10px]" type="text" placeholder="Additional Number"/>                                    
+                                    <input :disabled="!memberModule.memberModalInfo.phone_number?.number" :value="memberModule.memberModalInfo.add_phone_number?.number" @input="memberModule.setAddPhoneNumber" class="w-[190px] h-[40px] ml-[10px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[16px] rounded-[10px]" type="text" placeholder="Additional Number"/>                                    
                                 </div>
                             </div>
 
@@ -122,7 +122,7 @@ const save_change = () => {
                                         <img src="../../assets/Textfield_icons/Email_Icon.svg" class="w-[20px]"/>
                                         </span>
                                     </span>
-                                    <input :value="memberModule.memberModalInfo.add_email" @input="memberModule.setAdditionalEmail" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="Additional Email Address"/>
+                                    <input :disabled="!memberModule.memberModalInfo.email" :value="memberModule.memberModalInfo.add_email" @input="memberModule.setAdditionalEmail" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="Additional Email Address"/>
                                 </label>
                             </div>
 

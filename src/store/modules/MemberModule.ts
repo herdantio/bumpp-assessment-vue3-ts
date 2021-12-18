@@ -12,6 +12,7 @@ export default class MemberModule extends VuexModule {
     members: Member[] = [];
     searchFilter: string = "";
     isMemberModalOpen: boolean = false;
+    isSuccessModalOpen: boolean = false;
     memberModalInfo: MemberOverview = {
         job_title: "",
         email: "",
@@ -187,6 +188,16 @@ export default class MemberModule extends VuexModule {
         this.isMemberModalOpen = false;
     }
 
+    @ Mutation
+    openSuccessModal() {
+        this.isSuccessModalOpen = true;
+    }
+
+    @Mutation
+    closeSuccessModal() {
+        this.isSuccessModalOpen = false;
+    }
+
     @Mutation
     setSearchFilter(searchFilter: string) {
         this.searchFilter = searchFilter;
@@ -218,7 +229,10 @@ export default class MemberModule extends VuexModule {
             }
             const response = await MembersAPI.updateMember(member)
             console.log(response.data)
-            if(response.data.success) this.closeMemberModal()
+            if(response.data.success) {
+                this.closeMemberModal()
+                this.openSuccessModal()
+            }
             this.getAllMembers();
         } catch (error) {
             console.log(error)

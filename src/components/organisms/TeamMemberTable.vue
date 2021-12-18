@@ -5,6 +5,7 @@ import TeamMemberItem from '../atoms/TeamMemberItem.vue';
 import { onMounted, reactive } from 'vue';
 import Member from '../../types/Member';
 import MemberModal from './MemberModal.vue';
+import SuccessModal from './SuccessModal.vue';
 
 const store = useStore()
 const memberModule = getModule(MemberModule, store)
@@ -46,5 +47,6 @@ const handleEditMemberClicked = (member: Member) => {
 
         <!-- modal -->
         <MemberModal :member="memberProps.member"></MemberModal>
+        <SuccessModal></SuccessModal>
     </div>
 </template>
