@@ -49,6 +49,16 @@ export default class MemberModule extends VuexModule {
             console.log(error)
         }
     }
+
+    @Action
+    async updateMember(member: Member) {
+        try {
+            const response = await MembersAPI.updateMember(member)
+            this.getAllMembers();
+        } catch (error) {
+            console.log(error)
+        }
+    }
     
     @Action
     public mockAPI() {

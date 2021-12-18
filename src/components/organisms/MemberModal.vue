@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Dialog, DialogOverlay, TransitionRoot, TransitionChild } from "@headlessui/vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 import { getModule } from "vuex-module-decorators";
 import MemberModule from "../../store/modules/MemberModule";
@@ -15,6 +16,32 @@ interface MemberModalProps {
     member: Member;
 }
 const props = defineProps<MemberModalProps>();
+
+let job_title = ref("");
+let email = ref("");
+let add_email = ref("");
+let phone_number_code = ref("");
+let phone_number_number = ref("");
+let add_phone_number_code = ref("");
+let add_phone_number_number = ref("");
+let linkedin = ref("");
+let facebook = ref("");
+let instagram = ref("");
+let telegram = ref("");
+
+const save_change = () => {
+    console.log(job_title.value)
+    console.log(email.value)
+    console.log(add_email.value)
+    console.log(phone_number_code.value)
+    console.log(phone_number_number.value)
+    console.log(add_phone_number_code.value)
+    console.log(add_phone_number_number.value)
+    console.log(linkedin.value)
+    console.log(facebook.value)
+    console.log(instagram.value)
+    console.log(telegram.value)
+}
 </script>
 
 <template>
@@ -72,27 +99,92 @@ const props = defineProps<MemberModalProps>();
 
                             <!-- job title -->
                             <div class="mt-[20px] flex flex-col items-center">
-                                <input class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder placeholder:pl-[10px]" type="text" placeholder="Job Title"/>
+                                <input v-model="job_title" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder placeholder:pl-[10px] rounded-[10px]" type="text" placeholder="Job Title"/>
+                            </div>
+
+                            <!-- phone & additional phone -->
+                            <div class="mt-[15px] flex flex-col"> 
+                                <div class="flex flex-row">
+                                    <select v-model="phone_number_code" class="ml-[63px] w-[80px] rounded-[10px]">
+                                        <option value="+65">+65</option>
+                                    </select>
+                                    <input v-model="phone_number_number" class="w-[190px] h-[40px] ml-[10px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[16px] rounded-[10px]" type="text" placeholder="Mobile Number*"/>
+                                    <select v-model="add_phone_number_code" class="ml-[15px] w-[80px] rounded-[10px]">
+                                        <option value="+65">+65</option>
+                                    </select>
+                                    <input v-model="add_phone_number_number" class="w-[190px] h-[40px] ml-[10px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[16px] rounded-[10px]" type="text" placeholder="Additional Number"/>                                    
+                                </div>
                             </div>
 
                             <!-- Email -->
-                            <div class="mt-[15px] flex flex-col items-center">
-                                <input class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder placeholder:pl-[10px]" type="text" placeholder="Email Address"/>
+                            <div class="mt-[15px] flex flex-col items-center"> 
+                                <label class="relative block">
+                                    <span class="absolute inset-y-0 left-0 flex items-center ml-[15px]">
+                                        <span>
+                                        <img src="../../assets/Textfield_icons/Email_Icon.svg" class="w-[20px]"/>
+                                        </span>
+                                    </span>
+                                    <input v-model="email" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="Email Address*"/>
+                                </label>
                             </div>
 
                             <!-- Additional Email -->
-                            <div class="mt-[15px] flex flex-col items-center">
-                                <input class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder placeholder:pl-[10px]" type="text" placeholder="Additional Email Address"/>
+                            <div class="mt-[15px] flex flex-col items-center"> 
+                                <label class="relative block">
+                                    <span class="absolute inset-y-0 left-0 flex items-center ml-[15px]">
+                                        <span>
+                                        <img src="../../assets/Textfield_icons/Email_Icon.svg" class="w-[20px]"/>
+                                        </span>
+                                    </span>
+                                    <input v-model="add_email" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="Additional Email Address"/>
+                                </label>
                             </div>
 
                             <!-- Linkedin -->
-                            <div class="mt-[15px] flex flex-col items-center">
-                                <input class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder placeholder:pl-[10px]" type="text" placeholder="Additional Email Address"/>
+                            <div class="mt-[15px] flex flex-col items-center"> 
+                                <label class="relative block">
+                                    <span class="absolute inset-y-0 left-0 flex items-center ml-[15px]">
+                                        <span>
+                                        <img src="../../assets/Textfield_icons/LinkedIn.png" class="w-[20px]"/>
+                                        </span>
+                                    </span>
+                                    <input v-model="linkedin" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="LinkedIn Link"/>
+                                </label>
                             </div>
 
                             <!-- Facebook -->
-                            <div class="mt-[15px] flex flex-col items-center">
-                                <input class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder placeholder:pl-[10px]" type="text" placeholder="Additional Email Address"/>
+                            <div class="mt-[15px] flex flex-col items-center"> 
+                                <label class="relative block">
+                                    <span class="absolute inset-y-0 left-0 flex items-center ml-[15px]">
+                                        <span>
+                                        <img src="../../assets/Textfield_icons/Facebook.png" class="w-[20px] rounded-full"/>
+                                        </span>
+                                    </span>
+                                    <input v-model="facebook" class="w-[575px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="Facebook Link"/>
+                                </label>
+                            </div>
+
+                            <!-- IG & telegram -->
+                            <div class="mt-[15px] flex flex-col"> 
+                                <div class="flex flex-row">
+                                    <label class="relative block ml-[63px]">
+                                        <span class="absolute inset-y-0 left-0 flex items-center ml-[15px]">
+                                            <span>
+                                            <img src="../../assets/Textfield_icons/Instagram.png" class="w-[20px]"/>
+                                            </span>
+                                        </span>
+                                        <input v-model="instagram" class="w-[280px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="@"/>
+                                    </label>
+
+                                    <label class="relative block ml-[15px]">
+                                        <span class="absolute inset-y-0 left-0 flex items-center ml-[15px]">
+                                            <span>
+                                            <img src="../../assets/Textfield_icons/Telegram.png" class="w-[20px]"/>
+                                            </span>
+                                        </span>
+                                        <input v-model="telegram" class="w-[280px] h-[40px] text-[15px] font-normal text-bumpp-blue-txt placeholder:text-[15px] placeholder:font-normal placeholder:text-bumpp-modal-placeholder pl-[45px] rounded-[10px]" type="text" placeholder="@"/>
+                                    </label>
+                                </div>
                             </div>
 
                             <!-- guide text -->
@@ -103,8 +195,8 @@ const props = defineProps<MemberModalProps>();
                             </div>
 
                             <!-- save changes button -->
-                            <div class="mt-[20px] mr-[63px] flex flex-row-reverse">
-                                <button class="bg-bumpp-modal-btn w-[120px] h-[40px] rounded-[10px] text-[15px] font-semibold text-white">
+                            <div class="mt-[20px] mr-[63px] pb-[25px] flex flex-row-reverse">
+                                <button @click="save_change" class="bg-bumpp-modal-btn w-[120px] h-[40px] rounded-[10px] text-[15px] font-semibold text-white">
                                     Save Changes
                                 </button>
                             </div>
