@@ -43,7 +43,7 @@ const handleEditMemberClicked = () => {
         </div>
         <!-- platform select -->
         <div class="ml-[80px] mt-[10px] mb-[10px]">
-            <select class="w-[120px] w-[30px]">
+            <select class="w-[120px] h-[30px]">
                 <option>Admin</option>
                 <option>View-Only</option>
             </select>

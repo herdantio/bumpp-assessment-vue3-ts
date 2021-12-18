@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Dialog, DialogOverlay, TransitionRoot, TransitionChild } from "@headlessui/vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import { getModule } from "vuex-module-decorators";
 import MemberModule from "../../store/modules/MemberModule";
@@ -8,6 +8,7 @@ import Member from "../../types/Member";
 
 const store = useStore();
 const memberModule = getModule(MemberModule, store);
+
 const closeModal =  function() {
     memberModule.closeMemberModal();
 }
@@ -30,17 +31,36 @@ let instagram = ref("");
 let telegram = ref("");
 
 const save_change = () => {
-    console.log(job_title.value)
-    console.log(email.value)
-    console.log(add_email.value)
-    console.log(phone_number_code.value)
-    console.log(phone_number_number.value)
-    console.log(add_phone_number_code.value)
-    console.log(add_phone_number_number.value)
-    console.log(linkedin.value)
-    console.log(facebook.value)
-    console.log(instagram.value)
-    console.log(telegram.value)
+    let payload: Member = props.member;
+    payload.overview.job_title = job_title.value;
+    payload.overview.email = email.value;
+    payload.overview.add_email = add_email.value;
+    payload.overview.phone_number!.code = phone_number_code.value;
+    payload.overview.phone_number!.number = phone_number_number.value;
+    payload.overview.add_phone_number!.code = add_phone_number_code.value;
+    payload.overview.add_phone_number!.number = add_phone_number_number.value;
+    payload.overview.social_links?.push({
+        type: "linkedin",
+        title: linkedin.value,
+        url: linkedin.value
+    });
+    payload.overview.social_links?.push({
+        type: "facebook",
+        title: facebook.value,
+        url: facebook.value
+    });
+    payload.overview.social_links?.push({
+        type: "instagram",
+        title: instagram.value,
+        url: instagram.value
+    });
+    payload.overview.social_links?.push({
+        type: "telegram",
+        title: telegram.value,
+        url: telegram.value
+    });
+    memberModule.updateMember(payload);
+    // closeModal();
 }
 </script>
 

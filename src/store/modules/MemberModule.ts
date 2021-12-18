@@ -54,6 +54,7 @@ export default class MemberModule extends VuexModule {
     async updateMember(member: Member) {
         try {
             const response = await MembersAPI.updateMember(member)
+            console.log(response.data)
             this.getAllMembers();
         } catch (error) {
             console.log(error)
